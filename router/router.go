@@ -18,16 +18,21 @@ func RegisterRouters(engine *gin.Engine) {
 	engine.POST("/sendCode", handlers.SendCode)                                                              // 发送验证码
 	engine.POST("/login", handlers.Login)                                                                    // 验证码登录
 	engine.POST("/subscription", utils.CheckAccessToken(), handlers.Subscription)                            // 订阅列表
+	engine.POST("/subscription_update", utils.CheckAccessToken(), handlers.SubscriptionUpdate)               // 更新订阅
 	engine.POST("/subscription_star", utils.CheckAccessToken(), handlers.StarSubscription)                   // 星标订阅
 	engine.POST("/subscription_non_starred", utils.CheckAccessToken(), handlers.NonStarredSubscription)      // 未加星标订阅
-	engine.POST("/subscription_update", utils.CheckAccessToken(), handlers.UpdateStarSubscription)           // 更新星标订阅
+	engine.POST("/subscription_star_update", utils.CheckAccessToken(), handlers.UpdateStarSubscription)      // 更新星标订阅
 	engine.POST("/search", utils.CheckAccessToken(), handlers.Search)                                        // 搜索
 	engine.POST("/search_preset", utils.CheckAccessToken(), handlers.SearchPreset)                           // 「你可能想搜的内容」
 	engine.POST("/refresh_token", handlers.RefreshToken)                                                     // 刷新 token
 	engine.POST("/episode_list", utils.CheckAccessToken(), handlers.EpisodeList)                             // 剧集列表
+	engine.POST("/episode_list_by_filter", utils.CheckAccessToken(), handlers.EpisodeListByFilter)           // 节目内「最受欢迎」单集列表
 	engine.POST("/episode_detail", utils.CheckAccessToken(), handlers.EpisodeDetail)                         // 查询单集详情
 	engine.POST("/podcast_detail", utils.CheckAccessToken(), handlers.PodcastDetail)                         // 查询节目详情
+	engine.POST("/podcast_get_info", utils.CheckAccessToken(), handlers.PodcastGetInfo)                      // 获取节目主体信息
+	engine.POST("/podcast_honor_list", utils.CheckAccessToken(), handlers.PodcastHonorList)                  // 获取节目荣誉墙
 	engine.POST("/podcast_related", utils.CheckAccessToken(), handlers.RelatedPodcastList)                   // 相关节目推荐
+	engine.POST("/podcast_bulletin", utils.CheckAccessToken(), handlers.PodcastBulletin)                     // 获取节目公告
 	engine.POST("/profile", utils.CheckAccessToken(), handlers.Profile)                                      // 根据 uid 查询用户信息
 	engine.POST("/sticker", utils.CheckAccessToken(), handlers.StickerList)                                  // 根据 uid 查询已获得的贴纸
 	engine.POST("/sticker_board", utils.CheckAccessToken(), handlers.StickerBoard)                           // 查询我的贴纸墙
@@ -68,4 +73,5 @@ func RegisterRouters(engine *gin.Engine) {
 	engine.POST("/blocked_user_remove", utils.CheckAccessToken(), handlers.BlockedUserRemove)                // 将用户移出黑名单
 	engine.POST("/user_preference_get", utils.CheckAccessToken(), handlers.UserPreferenceGet)                // 获取用户偏好设置
 	engine.POST("/user_preference_update", utils.CheckAccessToken(), handlers.UserPreferenceUpdate)          // 更新用户偏好设置
+	engine.POST("/relation_update", utils.CheckAccessToken(), handlers.RelationUpdate)                       // 关注/取关用户
 }
